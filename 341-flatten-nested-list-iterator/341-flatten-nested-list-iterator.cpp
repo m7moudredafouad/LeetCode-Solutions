@@ -19,7 +19,7 @@
 class NestedIterator {
 private:
     vector<NestedInteger> myList;
-    stack<pair<vector<NestedInteger>*, int>> myQueue;
+    stack<pair<vector<NestedInteger>*, int>> myStack;
     int visited = 0;
     int theNext = INT_MIN;
     
@@ -33,14 +33,14 @@ public:
     }
     
     bool hasNext() { 
-        if(visited >= myList.size() && myQueue.empty()) return false;
+        if(visited >= myList.size() && myStack.empty()) return false;
         
-        while(!myQueue.empty()) {
-            pair<vector<NestedInteger>*, int> *tmp = &(myQueue.top());
+        while(!myStack.empty()) {
+            pair<vector<NestedInteger>*, int> *tmp = &(myStack.top());
             
             // If we are currently processing the last member
             if(tmp->second + 1 >= (*tmp->first).size()) {
-                myQueue.pop();
+                myStack.pop();
                 
                 if((*tmp->first).size() == 0) {
                     return this->hasNext();
@@ -52,7 +52,7 @@ public:
                 return true;
             } 
 
-            myQueue.push(make_pair(&((*tmp->first)[tmp->second++].getList()), 0));
+            myStack.push(make_pair(&((*tmp->first)[tmp->second++].getList()), 0));
 
             return this->hasNext();
         }
@@ -62,7 +62,7 @@ public:
             theNext = myList[visited++].getInteger();
             return true;
         } else {
-            myQueue.push(make_pair(&(myList[visited++].getList()), 0));
+            myStack.push(make_pair(&(myList[visited++].getList()), 0));
             return this->hasNext();
 
         }
