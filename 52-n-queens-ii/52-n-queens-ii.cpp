@@ -15,24 +15,24 @@ class Solution {
         return true;
     }
     
-    void solveQueen(vector<vector<string>> &sol, vector<string> &tmp,int index, int n) {
+    void solveQueen(int &count, vector<string> &tmp,int index, int n) {
         if(index == n) {
-            sol.push_back(tmp);
+            count++;
             return;
         }
         for(int i = 0; i < n; i++) {
             if(isValid(tmp, index, i, n)) {
                 tmp[index][i] = 'Q';
-                solveQueen(sol, tmp, index+1, n);
+                solveQueen(count, tmp, index+1, n);
                 tmp[index][i] = '.';            
             }
         }
     }
 public:
     int totalNQueens(int n) {
-        vector<vector<string>> sol;
+        int count = 0;
         vector<string> tmp(n, string(n, '.'));
-        solveQueen(sol, tmp, 0, n);
-        return sol.size();
+        solveQueen(count, tmp, 0, n);
+        return count;
     }
 };
