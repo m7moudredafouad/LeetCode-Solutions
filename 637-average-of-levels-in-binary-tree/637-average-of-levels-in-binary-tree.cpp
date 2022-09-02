@@ -20,7 +20,7 @@ public:
         while(!q.empty()) {
             int size = q.size();
             int i = size;
-            double sum = 0;
+            long  sum = 0;
             while(i--) {
                 TreeNode * tmp = q.front();
                 q.pop();
